@@ -126,11 +126,27 @@ namespace SimpleCharacterHandAnimator
             bvhRecorder.captureFrame();
            
             isReadyToRecordFrame = true;
-        }        
+        }       
+        
+        public void StartRecording()
+        {
+            bvhRecorder.capturing = true;
+        }
+
+        public void StopRecording()
+        {
+            bvhRecorder.capturing = false;
+        }
+
 
         private void Update()
         {
             if (!isReadyToRecordFrame) return;
+
+            if (bvhRecorder.capturing)
+            {
+                Debug.Log("<color=cyan>" + "Recording: " + bvhRecorder.frameNumber + "</color>");
+            }
 
             if (Input.GetKeyUp(KeyCode.R))
             {

@@ -22,6 +22,17 @@ namespace SimpleCharacterHandAnimator
 
             if (recordTarget.isReadyToRecordFrame)
             {
+                 if (GUILayout.Button("Start Recording"))
+                 {
+                    recordTarget.StartRecording();
+                 }
+
+                if (GUILayout.Button("Stop Recording"))
+                {
+                    recordTarget.StopRecording();
+                }
+
+
                 GUILayout.Label("Select option");
 
                 if (GUILayout.Button("Capture Frames"))

@@ -26,6 +26,8 @@ namespace SimpleCharacterHandAnimator
             get { return animator; }
         }
 
+        [SerializeField] private bool includeFingerBones = false;
+
         /// <summary>
         /// Minimun amount of bones and important ones
         /// </summary>
@@ -63,10 +65,12 @@ namespace SimpleCharacterHandAnimator
         }
 
 
-        /// <summary>
-        /// Initialize list of full body bones, (only the main bones, finger bones are discarded)
-        /// </summary>
-        private void InitializeFullBodyBones()
+       
+
+            /// <summary>
+            /// Initialize list of full body bones, (only the main bones, finger bones are discarded)
+            /// </summary>
+        private void AddMainBodyBones()
         {
             fullBodyBones = new List<HumanBodyBones>();
             fullBodyBones.Add(HumanBodyBones.Hips);
@@ -93,6 +97,51 @@ namespace SimpleCharacterHandAnimator
             fullBodyBones.Add(HumanBodyBones.UpperChest);
         }
 
+        private void AddFingerBones()
+        {
+            fullBodyBones.Add(HumanBodyBones.LeftThumbProximal);
+            fullBodyBones.Add(HumanBodyBones.LeftThumbIntermediate);
+            fullBodyBones.Add(HumanBodyBones.LeftThumbDistal);
+
+            fullBodyBones.Add(HumanBodyBones.LeftIndexProximal);
+            fullBodyBones.Add(HumanBodyBones.LeftIndexIntermediate);
+            fullBodyBones.Add(HumanBodyBones.LeftIndexDistal);
+
+            fullBodyBones.Add(HumanBodyBones.LeftMiddleProximal);
+            fullBodyBones.Add(HumanBodyBones.LeftMiddleIntermediate);
+            fullBodyBones.Add(HumanBodyBones.LeftMiddleDistal);
+
+            fullBodyBones.Add(HumanBodyBones.LeftRingProximal);
+            fullBodyBones.Add(HumanBodyBones.LeftRingIntermediate);
+            fullBodyBones.Add(HumanBodyBones.LeftRingDistal);
+
+            fullBodyBones.Add(HumanBodyBones.LeftLittleProximal);
+            fullBodyBones.Add(HumanBodyBones.LeftLittleIntermediate);
+            fullBodyBones.Add(HumanBodyBones.LeftLittleDistal);
+
+
+            fullBodyBones.Add(HumanBodyBones.RightThumbProximal);
+            fullBodyBones.Add(HumanBodyBones.RightThumbIntermediate);
+            fullBodyBones.Add(HumanBodyBones.RightThumbDistal);
+
+            fullBodyBones.Add(HumanBodyBones.RightIndexProximal);
+            fullBodyBones.Add(HumanBodyBones.RightIndexIntermediate);
+            fullBodyBones.Add(HumanBodyBones.RightIndexDistal);
+
+            fullBodyBones.Add(HumanBodyBones.RightMiddleProximal);
+            fullBodyBones.Add(HumanBodyBones.RightMiddleIntermediate);
+            fullBodyBones.Add(HumanBodyBones.RightMiddleDistal);
+
+            fullBodyBones.Add(HumanBodyBones.RightRingProximal);
+            fullBodyBones.Add(HumanBodyBones.RightRingIntermediate);
+            fullBodyBones.Add(HumanBodyBones.RightRingDistal);
+
+            fullBodyBones.Add(HumanBodyBones.RightLittleProximal);
+            fullBodyBones.Add(HumanBodyBones.RightLittleIntermediate);
+            fullBodyBones.Add(HumanBodyBones.RightLittleDistal);
+
+        }
+
         public void GenerateBoneMap(Animator inAnimator)
         {
             initialized = false;
@@ -105,7 +154,12 @@ namespace SimpleCharacterHandAnimator
 
             animator = inAnimator;
 
-            InitializeFullBodyBones();
+            AddMainBodyBones();
+
+            if (includeFingerBones)
+            {
+                AddFingerBones();
+            }
 
             /// Initialize all bones, no discarded bones, this is helpful for the recorder and loader
             int nBones = (int)HumanBodyBones.LastBone;
