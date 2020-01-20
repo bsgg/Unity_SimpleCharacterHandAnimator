@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RootMotion.FinalIK;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -10,15 +11,31 @@ namespace SimpleCharacterHandAnimator
     {
         [SerializeField] private SkeletonMapper skeleton;
         [SerializeField] private Animator skeletonAnimator;
-
+        
         [SerializeField] private BVHTools.BVHRecorder bvhRecorder;
+
+        [SerializeField] private MessagesUI messagesUI;
 
         public int framesCaptured { get; private set; }
 
         public bool isReadyToRecordFrame = false;
 
         public string motionCaptureDataDirectory;
-        
+
+
+        [Header("Final IK")]
+        [SerializeField] private VRIK finalIk;
+
+        [SerializeField] private Transform headTracker;
+        [SerializeField] private Transform hipTracker;
+        [SerializeField] private Transform leftHandTracker;
+        [SerializeField] private Transform rightHandTracker;
+        [SerializeField] private Transform leftFootTracker;
+        [SerializeField] private Transform rigthFootTracker;
+
+        private VRIKCalibrator.Settings settingsCalibrationData;
+
+
 
         void Start()
         {           
@@ -28,9 +45,11 @@ namespace SimpleCharacterHandAnimator
 
         private IEnumerator Initialize()
         {
+            messagesUI.message = "Preparing 3D Model: Setting bvhRecorder";
+
             isReadyToRecordFrame = false;
 
-            yield return new WaitForSeconds(3.0f);
+            yield return new WaitForSeconds(1.0f);
 
             skeleton.GenerateBoneMap(skeletonAnimator);
 
@@ -77,14 +96,40 @@ namespace SimpleCharacterHandAnimator
                 }
             }
 
+            messagesUI.message = "Preparing 3D Model: Mapping bones";
+
             // Always record full body
             bvhRecorder.InitializeBonesToRecord(skeleton.fullBodyBones);
             bvhRecorder.buildSkeleton();
             bvhRecorder.genHierarchy();
 
             framesCaptured = 0;
+           
+
+
+            messagesUI.message = "Preparing 3D Model: Calibrating Final IK with 3D Model";
+
+            finalIk.enabled = true;
+
+            yield return new WaitForEndOfFrame();
+
+            settingsCalibrationData = new VRIKCalibrator.Settings();
+
+            VRIKCalibrator.Calibrate(finalIk, settingsCalibrationData,
+                headTracker,
+                hipTracker,
+               leftHandTracker,
+               rightHandTracker,
+               leftFootTracker,
+               rigthFootTracker);
+
+            yield return new WaitForEndOfFrame();
+
             isReadyToRecordFrame = true;
+            messagesUI.message = "3D Model ready!";
         }
+
+
 
         public void SaveFile()
         {

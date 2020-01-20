@@ -560,7 +560,11 @@ namespace BVHTools
                 throw new InvalidOperationException("Skeleton not initialized. You can initialize the skeleton by calling buildSkeleton().");
             }
 
-            offsetScale = new Vector3(1f / targetAvatar.transform.localScale.x, 1f / targetAvatar.transform.localScale.y, 1f / targetAvatar.transform.localScale.z);
+            // offsetScale = new Vector3(1f / targetAvatar.transform.localScale.x, 1f / targetAvatar.transform.localScale.y, 1f / targetAvatar.transform.localScale.z);
+
+            // Scale everything by 100
+            offsetScale = new Vector3(targetAvatar.transform.localScale.x *100.0f,targetAvatar.transform.localScale.y * 100.0f, targetAvatar.transform.localScale.z * 100.0f);
+
 
             Quaternion rot = skel.transform.rotation;
             skel.transform.rotation = Quaternion.identity;
