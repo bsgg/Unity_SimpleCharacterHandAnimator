@@ -942,8 +942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3678c9f82fd9464781c57f9955c9ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputBVHFile: D:\Download\Test\session_20 01 2020_12 02 29\session_20 01 2020_12
-    02 29.bvh
+  inputBVHFile: D:\Download\Test\WinterdustTest\RescaledTest.bvh
   anim: {fileID: 8296172667781364587}
   nBones: 0
   nFramesCount: 0

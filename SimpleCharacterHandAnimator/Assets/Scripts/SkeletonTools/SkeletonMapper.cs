@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace SimpleCharacterHandAnimator
 {
-    [System.Serializable]
+
     public class HumanoidBone
     {
         public string Name;
@@ -35,7 +35,7 @@ namespace SimpleCharacterHandAnimator
         /// </summary>
         public List<HumanBodyBones> fullBodyBones { get; set; }
 
-       [SerializeField] private HumanoidBone[] boneMap;
+       private HumanoidBone[] boneMap;
 
         public int BoneNumber
         {

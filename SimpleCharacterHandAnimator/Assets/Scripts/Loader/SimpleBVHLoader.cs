@@ -27,10 +27,15 @@ namespace SimpleCharacterHandAnimator
         EditorCurveBinding[] editorCurvesToWrite;
         AnimationCurve[] animatedCurvesToWrite;
 
+        [SerializeField] string folderFileName = "D:\\Download\\WinterdustTest";
+
         private bool readyToPlay = false;
 
         void Start()
         {
+            //BVH winterdustBvh = new BVH(inputBVHFile, -10, false, 0, -1, false, true, true, true, null);
+           // winterdustBvh.makeDebugSkeleton(true, "8EFF00", 1);
+
             StartCoroutine(Load());
         }
 
@@ -51,7 +56,12 @@ namespace SimpleCharacterHandAnimator
             nFramesCount = winterdustBvh.frameCount;
             animationDuration = winterdustBvh.getDurationSec();
 
-            yield return new WaitForSeconds(1.0f);
+
+            //BVH newScaled = winterdustBvh.scale(100.0f);
+            //newScaled.writeToDisk("D:\\Download\\Test\\WinterdustTest\\RescaledTest.bvh", false, true);
+
+            
+             yield return new WaitForSeconds(1.0f);
 
             loadedClip = winterdustBvh.makeAnimationClip();
 
@@ -80,7 +90,7 @@ namespace SimpleCharacterHandAnimator
             Debug.Log("<color=cyan>" + "READY TO PLAY" + "</color>");
         }
 
-        [SerializeField] string folderFileName = "D:\\Download\\WinterdustTest";
+       
 
         private IEnumerator WriteClipToDirectory()
         {
