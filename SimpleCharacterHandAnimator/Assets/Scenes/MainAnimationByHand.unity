@@ -591,7 +591,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c3da5a126f760747b5befd51ff6de58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  includeFingerBones: 1
+  includeFingerBones: 0
+  includeRigBoneNames: 1
+  boneMap: []
 --- !u!114 &290438723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1888,6 +1890,7 @@ MonoBehaviour:
   frameNumber: 0
   lastSavedFile: 
   RecordedBones: 
+  UseRigBoneNames: 1
 --- !u!114 &1749977729
 MonoBehaviour:
   m_ObjectHideFlags: 0

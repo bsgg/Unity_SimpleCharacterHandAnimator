@@ -42,6 +42,9 @@ namespace BVHTools
         [Tooltip("This field can be used to read out the the animation clip after being loaded. A new clip will always be created when loading.")]
         public AnimationClip clip;
 
+        public bool UseRigBoneNames = false;
+
+
         static private int clipCount = 0;
         private BVHParser bp = null;
         private Transform rootBone;
@@ -479,7 +482,7 @@ namespace BVHTools
                 if (standardBoneNames)
                 {
                     Dictionary<Transform, string> boneMap;
-                    BVHRecorder.populateBoneMap(out boneMap, targetAvatar);
+                    BVHRecorder.populateBoneMap(out boneMap, targetAvatar, UseRigBoneNames);
                     nameMap = boneMap.ToDictionary(kp => flexibleName(kp.Value), kp => kp.Key);
                 }
                 else

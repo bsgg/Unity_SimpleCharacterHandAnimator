@@ -58,6 +58,9 @@ namespace BVHTools
         // CHANGE BEA: ONLY INCLUDE BONES TO RECORD THAT ARE REALLY NECESARY WHEN RECORDING 
         [Tooltip("List of bones for recording into account when enforce humanoid bones is checked")]
         public List<HumanBodyBones> RecordedBones;
+        [Tooltip("Use bone names of the rig or HumanBodyBones unity names")]
+        public bool UseRigBoneNames = false;
+
         // CHANGE BEA: ONLY INCLUDE BONES TO RECORD THAT ARE REALLY NECESARY WHEN RECORDING 
 
         private Vector3 basePosition;
@@ -109,7 +112,7 @@ namespace BVHTools
         }
         // CHANGE BEA: ONLY INCLUDE BONES TO RECORD THAT ARE REALLY NECESARY WHEN RECORDING  
 
-        public static void populateBoneMap(out Dictionary<Transform, string> boneMap, Animator targetAvatar)
+        public static void populateBoneMap(out Dictionary<Transform, string> boneMap, Animator targetAvatar, bool useBoneNameFromRigAvatar)
         {
             if (!targetAvatar.avatar.isHuman)
             {
@@ -136,8 +139,18 @@ namespace BVHTools
                     }
                     else
                     {
-                        boneMap.Add(bodyBone, bone.ToString());
-                        usedNames.Add(bone.ToString(), 1);
+                        if (useBoneNameFromRigAvatar)
+                        {
+                            // CHANGE BEA: USE RIG BONES NAMES
+                            boneMap.Add(bodyBone, bodyBone.name);
+                            usedNames.Add(bodyBone.name.ToString(), 1);
+                            // CHANGE BEA: USE RIG BONES NAMES
+                        }
+                        else
+                        {
+                            boneMap.Add(bodyBone, bone.ToString());
+                            usedNames.Add(bone.ToString(), 1);
+                        }
                     }
                 }
             }
@@ -211,7 +224,7 @@ namespace BVHTools
 
             if (enforceHumanoidBones)
             {
-                populateBoneMap(out boneMap, targetAvatar);
+                populateBoneMap(out boneMap, targetAvatar, UseRigBoneNames);
             }
 
             List<Component> meshes = new List<Component>(targetAvatar.GetComponents<SkinnedMeshRenderer>());
@@ -381,7 +394,7 @@ namespace BVHTools
 
             if (enforceHumanoidBones)
             {
-                populateBoneMap(out boneMap, targetAvatar);
+                populateBoneMap(out boneMap, targetAvatar, UseRigBoneNames);
             }
             else
             {
@@ -560,10 +573,7 @@ namespace BVHTools
                 throw new InvalidOperationException("Skeleton not initialized. You can initialize the skeleton by calling buildSkeleton().");
             }
 
-            // offsetScale = new Vector3(1f / targetAvatar.transform.localScale.x, 1f / targetAvatar.transform.localScale.y, 1f / targetAvatar.transform.localScale.z);
-
-            // Scale everything by 100
-            offsetScale = new Vector3(targetAvatar.transform.localScale.x *100.0f,targetAvatar.transform.localScale.y * 100.0f, targetAvatar.transform.localScale.z * 100.0f);
+            offsetScale = new Vector3(1f / targetAvatar.transform.localScale.x, 1f / targetAvatar.transform.localScale.y, 1f / targetAvatar.transform.localScale.z);
 
 
             Quaternion rot = skel.transform.rotation;

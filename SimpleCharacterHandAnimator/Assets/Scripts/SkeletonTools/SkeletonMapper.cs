@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace SimpleCharacterHandAnimator
 {
+    [System.Serializable]
     public class HumanoidBone
     {
         public string Name;
@@ -27,13 +28,14 @@ namespace SimpleCharacterHandAnimator
         }
 
         [SerializeField] private bool includeFingerBones = false;
+        [SerializeField] private bool includeRigBoneNames = false;
 
         /// <summary>
         /// Minimun amount of bones and important ones
         /// </summary>
         public List<HumanBodyBones> fullBodyBones { get; set; }
 
-        private HumanoidBone[] boneMap;
+       [SerializeField] private HumanoidBone[] boneMap;
 
         public int BoneNumber
         {
@@ -179,6 +181,9 @@ namespace SimpleCharacterHandAnimator
                 boneMap[i].IndexBone = i;
                 boneMap[i].Name = boneIndex.ToString();
 
+               
+                
+
                 if (boneIndex == HumanBodyBones.Hips)
                 {
                     rootBone = boneMap[i];
@@ -193,7 +198,19 @@ namespace SimpleCharacterHandAnimator
                     if (boneIndex == HumanBodyBones.Hips)
                     {
                         rootBone.Path = boneTransform.name;
+
+                        if (includeRigBoneNames)
+                        {
+                            rootBone.Name = boneTransform.name;
+                        }
+
                     }
+
+                    if (includeRigBoneNames)
+                    {
+                        boneMap[i].Name = boneTransform.name;
+                    }
+
                 }
             }
 

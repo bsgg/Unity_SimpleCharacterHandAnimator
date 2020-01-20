@@ -942,13 +942,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3678c9f82fd9464781c57f9955c9ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputBVHFile: 
+  inputBVHFile: D:\Download\Test\session_20 01 2020_12 02 29\session_20 01 2020_12
+    02 29.bvh
   anim: {fileID: 8296172667781364587}
   nBones: 0
   nFramesCount: 0
   animationDuration: 0
-  folderFileName: D:\Download\Test\session_20 01 2020_10 45 05\session_20 01 2020_10
-    45 05.bvh
+  folderFileName: D:\Download\Test\session_20 01 2020_12 02 29
 --- !u!4 &1749977730
 Transform:
   m_ObjectHideFlags: 0
@@ -3028,7 +3028,7 @@ Animation:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8296172667781364585}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Animation: {fileID: 0}
   m_Animations: []
